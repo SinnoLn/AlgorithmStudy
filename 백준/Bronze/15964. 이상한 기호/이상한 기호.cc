@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int a, b, result;
+long long a, b, result;
 
 int main()
 {

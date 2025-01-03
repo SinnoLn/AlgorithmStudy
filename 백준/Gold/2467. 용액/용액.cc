@@ -1,49 +1,27 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
-#include <math.h>
+#include <cmath>
 
 using namespace std;
-vector<int> arr;
-int n, num, r, l, sum = -2100000000, tmp;
-int ll, rr;
-int main()
-{
+
+int n, liquid[100000], answer[2];
+int main() {
     cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> num;
-        arr.push_back(num);
+    for(int i=0; i<n; i++) cin >> liquid[i]; 
+    int min_num = 2100000000;
+    int left = 0, right = n-1;
+    
+    while(left < right){
+      if(min_num>abs(liquid[left]+liquid[right])){
+            min_num = abs(liquid[left]+liquid[right]);
+            answer[0] = liquid[left];
+            answer[1] = liquid[right];
+        } 
+        
+        if(liquid[left]+liquid[right]<0) left++;
+        else if(liquid[left]+liquid[right]>0) right--;
+        else break;
     }
-
-    // sort?
-    sort(arr.begin(), arr.end());
-
-    // 정렬후 r,l
-    l = 0;
-    r = arr.size() - 1;
-
-    while (l != r)
-    {
-        tmp = arr[l] + arr[r];
-        // tmp가 절댓값이 더 작을 경우
-        if (abs(sum) > abs(tmp))
-        {
-            sum = tmp;
-            ll = arr[l];
-            rr = arr[r];
-        }
-
-        // 음수면 left ++
-        if (tmp < 0)
-            l++;
-        // 양수면 right ++
-        else if (tmp > 0)
-            r--;
-        else
-            break;
-    }
-
-    std::cout << ll << " " << rr << '\n';
+    cout << answer[0] <<" "<<answer[1]<<'\n';
     return 0;
 }

@@ -1,6 +1,5 @@
 #include <string>
 #include <vector>
-#include <iostream>
 #include <unordered_map>
 
 using namespace std;
@@ -15,14 +14,7 @@ vector<int> solution(int n, vector<string> words) {
     for(int i=1; i<words.size(); i++){
         order = (i%n)+1;
         if(i%n == 0) stage++;
-        cout << "stage : " << stage << " order: " << order << '\n';
-        if(map.find(words[i]) != map.end()){
-            // cout << map[words[i]] << '\n';
-            _check = false;
-            break;
-        }
-        if(words[i].front() != words[i-1].back()){
-            // cout << words[i].front() << " : " << words[i-1].back() << '\n';
+        if(map.find(words[i]) != map.end() ||words[i].front() != words[i-1].back()){
             _check = false;
             break;
         }

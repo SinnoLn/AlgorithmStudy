@@ -5,32 +5,33 @@
 
 using namespace std;
 
-queue<pair<int,int>>q;
+queue<int>q;
 bool check_higher;
 int solution(vector<int> priorities, int location) {
     int answer = 0;
-    for(int i=0; i<priorities.size(); i++) q.push({i,priorities[i]});
+    for(int i=0; i<priorities.size(); i++) q.push(i);
     
     while(!q.empty()){
-        pair<int,int> tmp = q.front();
+        int current_num = q.front();
+        int propority = priorities[0];
         q.pop();
         
         check_higher = false;
         for(int i : priorities){
-            if(tmp.second<i) {
+            if(propority<i) {
                 check_higher = true;
                 break;
             }
         }
         
         if(check_higher) {
-            q.push(tmp);
+            q.push(current_num);
+            priorities.push_back(propority);
             priorities.erase(priorities.begin());
-            priorities.push_back(tmp.second);
         }
         else {
             answer++;
-            if(tmp.first == location) return answer;
+            if(current_num == location) return answer;
             priorities.erase(priorities.begin());
         }
     }

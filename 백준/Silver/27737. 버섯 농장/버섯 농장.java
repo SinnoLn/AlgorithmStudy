@@ -21,7 +21,7 @@ class Main {
         
         int ans = BFS();
 
-        if(ans == 0 || ans == m) {
+        if(ans < 0 || ans == m) {
             System.out.println("IMPOSSIBLE");   
         }
         else {
@@ -41,10 +41,9 @@ class Main {
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
                 if(visited[i][j] || mushroom[i][j] == 1) continue;
+                areaSize = 1;
                 visited[i][j] = true;
-                areaSize = 0;
                 q.add(new int[] {i, j});
-                areaSize++;
 
                 while(!q.isEmpty()){
                     int[] curr = q.poll();
@@ -67,7 +66,7 @@ class Main {
                 if(areaSize%k != 0) neededSpore++;
 
                 remainedSpore-=neededSpore;
-                if(remainedSpore < 0) return 0;
+                if(remainedSpore < 0) break;
             }
         }
         return remainedSpore;

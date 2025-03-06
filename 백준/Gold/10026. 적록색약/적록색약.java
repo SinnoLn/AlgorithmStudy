@@ -21,10 +21,10 @@ class Main {
 
         int normal = bfs();
 
+        visited = new boolean[n][n];
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
                 if(grid[i][j] == 'R') grid[i][j] = 'G';
-                visited[i][j] = false;
             }
         }
 

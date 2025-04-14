@@ -21,8 +21,7 @@ public class Main {
         int ans = 0;
         Arrays.sort(diff);
         //뒤부터 k-1개는 skip하고 나머지 차이 계산
-        for(int i=diff.length-1; i>-1; i--){
-            if(n-(i+1) < k) continue;
+        for(int i=diff.length-1-(k-1); i>-1; i--){
             ans+=diff[i];
         }
         System.out.println(ans);

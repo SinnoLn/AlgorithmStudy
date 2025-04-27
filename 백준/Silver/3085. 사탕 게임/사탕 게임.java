@@ -13,12 +13,13 @@ public class Main {
         board[i] = br.readLine().toCharArray();
       }
       
-      int[] dy = {0,1,0,-1};
-      int[] dx = {1,0,-1,0};
+      //오른쪽, 아래만 탐색
+      int[] dy = {0,1};
+      int[] dx = {1,0};
       int max = 0;
       for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-          for(int dir = 0; dir<4; dir++){
+          for(int dir = 0; dir<2; dir++){
             int ny = i + dy[dir];
             int nx = j + dx[dir];
             //범위 넘으면 통과
@@ -33,15 +34,6 @@ public class Main {
               System.out.println(n);
               return;
             }
-            
-            // for(int y=0; y<n; y++){
-            //   for(int x=0; x<n; x++){
-            //     System.out.print(board[y][x]);
-            //   }
-            //   System.out.println();
-            // }
-            // System.out.println();
-            
             //다시 원래대로
             swap(i,j, ny, nx);
           }

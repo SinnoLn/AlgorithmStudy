@@ -31,31 +31,22 @@ public class Solution {
           ans = Math.max(ans,Math.max(sum1,sum2));
         }
         
-        int x = 0;
-        int y = 0;
-        int sum = map[y][x];
         //대각선 최댓값
-        while(true){
-          y += dy[0];
-          x += dx[0];
-          if(x < 0 || y < 0 || x >= 100 || y >= 100 ) break;
-          sum += map[y][x];
-        }
-        ans = Math.max(ans, sum);
-        
-        x = 99;
-        y = 0;
-        sum = map[y][x];
-        //대각선 최댓값
-        while(true){
-          y += dy[1];
-          x += dx[1];
-          if(x < 0 || y < 0 || x >= 100 || y >= 100 ) break;
-          sum += map[y][x];
-        }
-        ans = Math.max(ans, sum);
+        ans = Math.max(ans, maxSum(0,0,0));
+        ans = Math.max(ans, maxSum(99,0,1));
         
         System.out.println("#"+test+" " +ans);
       }
+  }
+  
+  static int maxSum(int x, int y, int dir){
+    int sum = map[y][x];
+    while(true){
+          y += dy[dir];
+          x += dx[dir];
+          if(x < 0 || y < 0 || x >= 100 || y >= 100 ) break;
+          sum += map[y][x];
+    }
+    return sum;
   }
 }

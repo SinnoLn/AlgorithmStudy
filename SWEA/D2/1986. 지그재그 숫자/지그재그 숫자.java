@@ -1,20 +1,20 @@
 import java.util.*;
 import java.io.*;
 
+//1부터 N까지의 숫자에서 홀수는 더하고 
+//짝수는 뺐을 때 최종 누적된 값을 구해보자.
 public class Solution {
-  //1부터 n까지의 숫자
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      int test = Integer.parseInt(br.readLine());
       
-      int t = Integer.parseInt(br.readLine());
-      for(int test = 1; test<=t; test++){
+      for(int t=1; t<=test; t++){
         int n = Integer.parseInt(br.readLine());
-        int sum = 0;
+        int sum=0;
         for(int i=1; i<=n; i++){
-          if(i%2==0) sum+=-i;
-          else sum+=i;
+          sum+=(i%2 == 0)?-i:i;
         }
-        System.out.println("#"+test+" "+sum);
+        System.out.println("#"+t+" "+sum);
       }
-    }
+  }
 }

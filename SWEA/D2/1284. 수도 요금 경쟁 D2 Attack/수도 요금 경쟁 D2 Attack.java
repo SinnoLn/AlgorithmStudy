@@ -4,9 +4,9 @@ import java.io.*;
 public class Solution {
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      int t = Integer.parseInt(br.readLine());
+      int test = Integer.parseInt(br.readLine());
       
-      for(int test=1; test<=t; test++){
+      for(int t=1; t<=test; t++){
         StringTokenizer st = new StringTokenizer(br.readLine());
         int p = Integer.parseInt(st.nextToken());
         int q = Integer.parseInt(st.nextToken());
@@ -14,15 +14,16 @@ public class Solution {
         int s = Integer.parseInt(st.nextToken());
         int w = Integer.parseInt(st.nextToken());
         
-        int aFee = 0;
-        int bFee = 0;
+        int payA = w*p;
+        int payB = 0;
+        if(w <= r) payB = q;
+        else {
+          payB = q + s*(w-r);
+        }
         
-        aFee = p*w;
-        if(w<=r) bFee = q;
-        else bFee = q + (w-r)*s;
-
-        int ans = Math.min(aFee, bFee);
-        System.out.println("#"+test+" "+ans);
+        int ans = Math.min(payB, payA);
+      
+        System.out.println("#"+t+" "+ans);
       }
   }
 }

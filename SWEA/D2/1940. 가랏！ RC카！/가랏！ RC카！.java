@@ -4,39 +4,34 @@ import java.io.*;
 public class Solution {
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      int t = Integer.parseInt(br.readLine());
+      int test = Integer.parseInt(br.readLine());
       
-      //현재 속도보다 감속할 속도가 클 경우 속도는 0
-      for(int test=1; test<=t; test++){
-        int n = Integer.parseInt(br.readLine());
-        int speed = 0;
-        int acc = 0;
-        int dis = 0;
+      //0 현재 속도 유지
+      //1 가속 + 가속도
+      //2 감속 + 가속도
+      for(int t=1; t<=test; t++){
+        int order = Integer.parseInt(br.readLine());
+        int currSpeed = 0;
+        int distance = 0;
         
-        //0 현재 속도 유지
-        //1 가속
-        //2 감속
-        for(int i=0; i<n; i++){
-           StringTokenizer st = new StringTokenizer(br.readLine());
-            int op = Integer.parseInt(st.nextToken());
-        
-            switch(op){
-              case 0:
-                dis+=speed;
-                break;
-              case 1:
-                acc = Integer.parseInt(st.nextToken());
-                speed+=acc;
-                dis+=speed;
-                break;
-              case 2:
-                acc = Integer.parseInt(st.nextToken());
-                speed-=acc;
-                if(speed<=0) speed = 0;
-                else dis+=speed;
-            }
+        for(int i=0; i<order; i++){
+          StringTokenizer st = new StringTokenizer(br.readLine());
+          int o = Integer.parseInt(st.nextToken());
+          
+          if(o == 0) distance+=currSpeed;
+          else if(o == 1){
+            int speed = Integer.parseInt(st.nextToken());
+            currSpeed+=speed;
+            distance+=currSpeed;
+          }
+          else if(o == 2){
+            int speed = Integer.parseInt(st.nextToken());
+            currSpeed-=speed;
+            if(currSpeed < 0) currSpeed = 0;
+            distance+=currSpeed;
+          }
         }
-        System.out.println("#"+test+" "+dis);
+        System.out.println("#"+t+" "+distance);
       }
   }
 }

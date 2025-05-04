@@ -4,36 +4,35 @@ import java.io.*;
 public class Solution {
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      int t = Integer.parseInt(br.readLine());
+      int test = Integer.parseInt(br.readLine());
       
-      for(int test = 1; test<=t; test++){
+      for(int t=1; t<=test; t++){
         StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
         
-        int n = Integer.parseInt(st.nextToken()); //총 영역 크기
-        int m = Integer.parseInt(st.nextToken()); //탐지할 공간 크기
-        
-        int[][] area = new int[n][n];
-        
+        int[][] map = new int[n][n];
         for(int i=0; i<n; i++){
           st = new StringTokenizer(br.readLine());
           for(int j=0; j<n; j++){
-            area[i][j] = Integer.parseInt(st.nextToken());
+            map[i][j] = Integer.parseInt(st.nextToken());
           }
         }
-          
-          int ans = 0;
-          for(int i=0; i<n-m+1; i++){
-            for(int j=0; j<n-m+1; j++){
-              int sum = 0;
-              for(int y = i; y<i+m; y++){
-                for(int x = j; x<j+m; x++){
-                  sum+=area[y][x];
-                }
+        
+        int ans = 0;
+        for(int i=0; i<n-m+1; i++){
+          for(int j=0; j<n-m+1; j++){
+            
+            int sum = 0;
+            for(int y=i; y<i+m; y++){
+              for(int x=j; x<j+m; x++){
+                sum+=map[y][x];
               }
-              ans = Math.max(ans, sum);
             }
+            ans = Math.max(ans, sum);
           }
-           System.out.println("#"+test+" "+ans);
         }
+        System.out.println("#"+t+" "+ans);
       }
-    }
+  }
+}

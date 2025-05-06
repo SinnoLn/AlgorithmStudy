@@ -2,33 +2,25 @@ import java.util.*;
 import java.io.*;
 
 public class Solution {
-    static int testCase;
-    static int a;
-    static int b;
-    static int n;
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      testCase = Integer.parseInt(br.readLine());
+      int test = Integer.parseInt(br.readLine());
       
-      for(int t = 0; t < testCase; t++){
+      for(int t=1; t<=test; t++){
         StringTokenizer st = new StringTokenizer(br.readLine());
-        a = Integer.parseInt(st.nextToken());
-        b = Integer.parseInt(st.nextToken());
-        n = Integer.parseInt(st.nextToken());
         
-        int ans = 0;
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int cnt = 0;
+        
         while(true){
           if(a > n || b > n) break;
-          if(a > b){
-            b+=a;
-            ans++;
-          }
-          else{
-            a+=b;
-            ans++;
-          }
+          if(a>b) b+=a; 
+          else a+=b;
+          cnt++;
         }
-        System.out.println(ans);
+        System.out.println(cnt);
       }
   }
 }

@@ -8,6 +8,7 @@ public class Main {
     static List<List<Integer>> graph = new ArrayList<>();
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
       StringTokenizer st = new StringTokenizer(br.readLine());
       
       int n = Integer.parseInt(st.nextToken());
@@ -35,7 +36,11 @@ public class Main {
       
       bfs(r);
       
-      for (int i = 1; i <= n; i++) System.out.println(visitedOrder[i]);
+      for (int i = 1; i <= n; i++) bw.write(visitedOrder[i]+"\n");
+      
+      bw.flush();
+      bw.close();
+      br.close();
   }
   
   static void bfs(int start){

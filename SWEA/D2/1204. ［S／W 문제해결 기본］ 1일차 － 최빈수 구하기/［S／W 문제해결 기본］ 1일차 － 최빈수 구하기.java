@@ -4,27 +4,28 @@ import java.io.*;
 public class Solution {
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      int t = Integer.parseInt(br.readLine());
-      for(int i=0; i<t; i++){
-        int test = Integer.parseInt(br.readLine());
-        int[] num = new int[101];
+      int test = Integer.parseInt(br.readLine());
+      
+      for(int t=1; t<=test; t++){
+        int[] grade = new int [101];
+        int num = Integer.parseInt(br.readLine());
+        int maxNum = 0;
+        int maxCnt = 0;
         
-        int maxNum = -1;
-        int maxFre = 0;
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int s=0; s<1000; s++){
-          int grade = Integer.parseInt(st.nextToken());
+        for(int i=0; i<1000; i++){
+          int n = Integer.parseInt(st.nextToken());
+          grade[n]++;
           
-          num[grade]++;
-          if(maxFre == num[grade]){
-            if(maxNum < grade) maxNum = grade;
-          }
-          else if(maxFre < num[grade]){
-            maxFre = num[grade];
-            maxNum = grade;
-          }
+          if(maxCnt<=grade[n]){
+            if(maxCnt<grade[n]) {
+              maxNum = n;
+              maxCnt = grade[n];
+            }
+            else maxNum = n;
         }
-        System.out.println("#"+test+" "+maxNum);
       }
+      System.out.println("#"+num+" "+maxNum);
   }
+}
 }

@@ -6,6 +6,7 @@ public class Solution {
     static Map<Integer, String> intToString = new HashMap<>();
     public static void main(String[] args) throws IOException {
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
       int test = Integer.parseInt(br.readLine());
       initialize();
       
@@ -22,16 +23,17 @@ public class Solution {
           numList[n]++;
         }
         
-        StringBuilder sb = new StringBuilder();
+        bw.write(output+"\n");
         for(int i=0; i<10; i++){
           while(numList[i]>0){
-            sb.append(intToString.get(i)).append(" ");
+            bw.write(intToString.get(i)+" ");
             numList[i]--;
           }
         }
-        System.out.println(output);
-        System.out.println(sb.toString());
       }
+      bw.flush();
+      bw.close();
+      br.close();
   }
   
   static void initialize(){

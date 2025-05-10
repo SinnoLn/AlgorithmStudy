@@ -2,48 +2,29 @@ import java.util.*;
 import java.io.*;
 
 public class Solution {
-    static Queue<String> deckA = new LinkedList<>();
-    static Queue<String> deckB = new LinkedList<>();
-    static int aCnt, bCnt;
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       int test = Integer.parseInt(br.readLine());
       
       for(int t=1; t<=test; t++){
         int n = Integer.parseInt(br.readLine());
+        String[] list = new String[n];
+        List<String> result = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(br.readLine());
         
-        aCnt = n/2;
-        bCnt = n/2;
-        if(n%2 != 0) aCnt++;
+        for(int i=0; i<n; i++) list[i] = st.nextToken();
         
-        for(int i=0; i<aCnt; i++){
-          String s = st.nextToken();
-          deckA.add(s);
-        }
-        for(int i=0; i<bCnt; i++){
-          String s = st.nextToken();
-          deckB.add(s);
+        int mid = (n + 1) / 2;
+        int i = 0;
+        int j = mid; 
+        while (i < mid || j < n) {
+            if (i < mid) result.add(list[i++]);
+            if (j < n) result.add(list[j++]);
         }
         
-        System.out.print("#"+t+" ");
-        StringBuilder sb = new StringBuilder();
-        
-        int cnt = n;
-        while(true){
-          sb.append(deckA.poll()).append(" ");
-          cnt--;
-          if(cnt == 0) break;
-          
-          sb.append(deckB.poll()).append(" ");
-          cnt--;
-          if(cnt == 0) break;
-        }
-        System.out.print(sb.toString());
+        System.out.print("#" + t + " ");
+        for (String card : result) System.out.print(card + " ");
         System.out.println();
-        
-        deckA.clear();
-        deckB.clear();
       }
   }
 }

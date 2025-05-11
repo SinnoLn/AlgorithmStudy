@@ -15,7 +15,7 @@ public class Solution {
         n = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         array = new int[n];
-        memo = new boolean[101][100001];
+        memo = new boolean[101][10001];
         
         for(int i=0; i<n; i++) array[i] = Integer.parseInt(st.nextToken());
         dfs(0,0);

@@ -2,10 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Solution {
-    static Set<Integer> set = new HashSet<>();
     static int[] array;
+    static boolean[] dp;
     static int n;
-    static boolean[][] memo;
     
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -15,24 +14,28 @@ public class Solution {
         n = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         array = new int[n];
-        memo = new boolean[101][10001];
+        int total = 0;
+
+        for(int i=0; i<n; i++) {
+          array[i] = Integer.parseInt(st.nextToken());
+          total += array[i];
+        }
         
-        for(int i=0; i<n; i++) array[i] = Integer.parseInt(st.nextToken());
-        dfs(0,0);
-        System.out.println("#"+t+" "+set.size());
-        set.clear();
+        dp = new boolean[total+1];
+        dp[0] = true;
+        
+        for(int score : array) {
+          for(int i = total; i>=score; i--){
+            if(dp[i-score]) dp[i] = true;
+          }
+        }
+        
+        int count = 0;
+        for(boolean possible : dp){
+          if(possible) count++;
+        }
+      
+        System.out.println("#" + t + " " + count); 
       }
-  }
-  
-  static void dfs(int idx, int sum){
-    if(idx == n){
-      set.add(sum);
-      return;
-    }
-    if(memo[idx][sum]) return;
-    memo[idx][sum] = true;
-    
-    dfs(idx+1, sum+array[idx]);
-    dfs(idx+1, sum);
   }
 }

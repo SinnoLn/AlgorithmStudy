@@ -1,33 +1,37 @@
 import java.util.*;
 import java.io.*;
 
+//조합 7c3
 public class Solution {
-    static Set<Integer> set;
-    static int[] num;
+    static int[] arr;
+    static int n,r;
+    static Set<Integer> set = new TreeSet<>(Collections.reverseOrder());
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       int test = Integer.parseInt(br.readLine());
+      n = 7;
+      r = 3;
       
       for(int t=1; t<=test; t++){
-        num = new int[7];
-        set = new TreeSet<>(Collections.reverseOrder());
-        
+        arr = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for(int i=0; i<7; i++) num[i] = Integer.parseInt(st.nextToken());
-        backtrack(0,0,0);
-        
+        for(int i=0; i<n; i++) arr[i] = Integer.parseInt(st.nextToken());
+
+        dfs(0,0,0);
         List<Integer> list = new ArrayList<>(set);
         System.out.println("#"+t+" "+list.get(4));
+        set.clear();
       }
   }
   
-  static void backtrack(int start, int sum, int depth){
-    if(depth == 3){
-      set.add(sum);
-      return;
+  static void dfs(int depth, int start, int sum){
+    if(depth == r){
+       set.add(sum);
+       return;
     }
-    for(int i=start; i<num.length; i++){
-      backtrack(i+1, sum+num[i], depth+1);
+    
+    for(int i=start; i<n; i++){
+      dfs(depth+1, i+1, sum+arr[i]);
     }
   }
 }

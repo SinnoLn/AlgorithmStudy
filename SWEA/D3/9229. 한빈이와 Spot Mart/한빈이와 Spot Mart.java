@@ -2,8 +2,6 @@ import java.util.*;
 import java.io.*;
 
 public class Solution {
-    static List<Integer> snacks;
-    static Map<Integer,Integer> memo;
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       int test = Integer.parseInt(br.readLine());
@@ -13,38 +11,29 @@ public class Solution {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
         
-        snacks = new ArrayList<>();
-        memo = new HashMap<>();
-        
+        int[] snacks = new int[n];
         st = new StringTokenizer(br.readLine());
-        for(int i=0; i<n; i++){
-          int snack = Integer.parseInt(st.nextToken());
-          if(snack >= m) continue;
-          if(!memo.containsKey(snack)){
-            memo.put(snack, 1);
-            snacks.add(snack);
-          }
-          else if(memo.get(snack) > 2) continue;
-          else if(memo.get(snack) == 1){
-            memo.put(snack, memo.get(snack)+1);
-            snacks.add(snack);
-          } 
-        }
         
-        int ans = searchMaxWeight(m);
+        for(int i=0; i<n; i++) snacks[i] = Integer.parseInt(st.nextToken());
+        Arrays.sort(snacks);
+        
+        int left = 0;
+        int right = n-1;
+        
+        int ans = -1;
+        while(left<right){
+          int sum = snacks[left] + snacks[right];
+          if(sum == m){
+            ans = m;
+            break;
+          } 
+          else if(sum > m) right--;
+          else {
+            ans = Math.max(ans, sum);
+            left++;
+          }
+        }
         System.out.println("#"+t+" "+ans);
       }
-  }
-  
-  static int searchMaxWeight(int limit){
-    int maxWeight = -1;
-    for(int i=0; i<snacks.size()-1; i++){
-      for(int j=i+1; j<snacks.size(); j++){
-        int sum = snacks.get(i) + snacks.get(j);
-        if(sum == limit) return sum;
-        else if(sum < limit) maxWeight = Math.max(maxWeight, sum);
-      }
-    }
-    return maxWeight;
   }
 }

@@ -2,46 +2,45 @@ import java.util.*;
 import java.io.*;
 
 public class Solution {
-    static int n;
-    static char[][] rectangle;
+    static char[][] rec;
+    static int minX, minY, maxX, maxY;
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       int test = Integer.parseInt(br.readLine());
+      
       for(int t=1; t<=test; t++){
-        n = Integer.parseInt(br.readLine());
-        rectangle = new char[n][n];
+        int n = Integer.parseInt(br.readLine());
+        rec = new char[n][n];
+        minX = Integer.MAX_VALUE;
+        maxX = Integer.MIN_VALUE;
+        minY = Integer.MAX_VALUE;
+        maxY = Integer.MIN_VALUE;
         
         for(int i=0; i<n; i++){
-          rectangle[i] = br.readLine().toCharArray();
+          String input = br.readLine();
+          for(int j=0; j<n; j++){
+            rec[i][j] = input.charAt(j);
+            if(rec[i][j] == '#'){
+              minX = Math.min(minX, j);
+              maxX = Math.max(maxX, j);
+              minY = Math.min(minY, i);
+              maxY = Math.max(maxY, i);
+            }
+          }
         }
-        String ans = isRectangle();
-        System.out.println("#"+t+" "+ans);
+        
+        if(isRectangle()) System.out.println("#"+t+" "+"yes");
+        else System.out.println("#"+t+" "+"no");
       }
   }
   
-  static String isRectangle(){
-    int startY = 10000;
-    int startX = 10000;
-    int endX = 0;
-    int endY = 0;
-    
-    for(int i=0; i<n; i++){
-      for(int j=0; j<n; j++){
-        if(rectangle[i][j] == '#'){
-          startY = Math.min(startY, i);
-          startX = Math.min(startX, j);
-          endY = Math.max(endY, i);
-          endX = Math.max(endX, j);
-        }
+  static boolean isRectangle(){
+    if(maxY-minY != maxX-minX) return false;
+    for(int y=minY; y<=maxY; y++){
+      for(int x=minX; x<=maxX; x++){
+        if(rec[y][x] != '#') return false;
       }
     }
-    
-    if(startY - endY != startX - endX) return new String("no");
-    for(int i=startY; i<=endY; i++){
-      for(int j=startX; j<=endX; j++){
-        if(rectangle[i][j] != '#') return new String("no");
-      }
-    }
-    return new String("yes");
+    return true;
   }
 }

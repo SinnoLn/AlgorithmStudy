@@ -44,7 +44,7 @@ public class Main {
         Nation curr = nation[i];
         Nation prev = nation[i-1];
         
-        //a와 등수 같게
+        //이전과 등수 같게
         if(isSame(curr,prev)) curr.rank = prev.rank;
         //인덱스 기준 등수  
         else curr.rank = i+1;
@@ -60,7 +60,7 @@ public class Main {
       static boolean isSame(Nation a, Nation b){
         if(a.gold != b.gold) return false;
         else if(a.silver != b.silver) return false;
-        else if (a.bronze != a.bronze) return false;
+        else if (a.bronze != b.bronze) return false;
         return true;
       }
 }

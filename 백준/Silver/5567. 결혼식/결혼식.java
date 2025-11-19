@@ -2,19 +2,15 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-  static List<List<Integer>> graph = new ArrayList<>();
-  static boolean[] visited;
+    static int n,m;
+    static List<List<Integer>>graph = new ArrayList<>();
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       
-      int n = Integer.parseInt(br.readLine());
-      int m = Integer.parseInt(br.readLine());
+      n = Integer.parseInt(br.readLine());
+      m = Integer.parseInt(br.readLine());
       
-      for(int i=0; i<=n; i++){
-        graph.add(new ArrayList<>());
-      }
-      
-      visited = new boolean[n+1];
+      for(int i=0; i<=n; i++) graph.add(new ArrayList<>());
       
       for(int i=0; i<m; i++){
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -25,34 +21,28 @@ public class Main {
         graph.get(b).add(a);
       }
       
-      int ans = bfs(1);
-      System.out.println(ans);
-  }
-  
-  //친구의 친구까지만
-  static int bfs(int start){
-    Queue<Integer> q = new LinkedList<>();
-    int cnt = 0;
-    int[] dist = new int[visited.length];
-
-    q.add(start);
-    visited[start] = true;
-    
-    while(!q.isEmpty()){
-      int node = q.poll();
-      if (dist[node] == 2) continue;
-       
-      for(int next : graph.get(node)){
-        if(visited[next]) continue;
-        int nd = dist[node] + 1;
-        if (nd > 2) continue;   
-            
-        visited[next] = true;
-        dist[next] = nd;
-        q.add(next);
-        cnt++;
+      Deque<int[]> dq = new ArrayDeque<>();
+      boolean[] visited = new boolean[n+1];
+      
+      dq.add(new int[]{1,0});
+      visited[1] = true;
+      
+      int ans = 0;
+      while(!dq.isEmpty()){
+        int curr[] = dq.poll();
+        int node = curr[0];
+        int cnt = curr[1];
+        
+        if(cnt>2) continue;
+        ans++;
+        
+        for(Integer next : graph.get(node)){
+          if(visited[next]) continue;
+          dq.add(new int[]{next,cnt+1});
+          visited[next] = true;
+        }
       }
-    }
-    return cnt;
+      
+      System.out.println(ans-1);
   }
 }

@@ -4,35 +4,39 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      Set<Integer> setA = new HashSet<>();
-      Set<Integer> setB = new HashSet<>();
       
       StringTokenizer st = new StringTokenizer(br.readLine());
       int a = Integer.parseInt(st.nextToken());
       int b = Integer.parseInt(st.nextToken());
       
+      //20
+      Set<Integer> setA = new HashSet<>();
+      Set<Integer> setB = new HashSet<>();
+      
+      int[] arrA = new int[a];
+      int[] arrB = new int[b];
+      
       st = new StringTokenizer(br.readLine());
       for(int i=0; i<a; i++){
-        int num = Integer.parseInt(st.nextToken());
-        setA.add(num);
+        arrA[i] = Integer.parseInt(st.nextToken());
+        setA.add(arrA[i]);
       }
       
       st = new StringTokenizer(br.readLine());
       for(int i=0; i<b; i++){
-        int num = Integer.parseInt(st.nextToken());
-        setB.add(num);
+        arrB[i] = Integer.parseInt(st.nextToken());
+        setB.add(arrB[i]);
       }
       
-      /////////////////////////////////////////////////
-      int cnt = 0;
-      Set<Integer> temp = new HashSet<>(setA);
-      temp.removeAll(setB);
-      cnt+=temp.size();
+      int cnt1 = 0;
+      int cnt2 = 0;
+      for(int i=0; i<b; i++){
+        if(!setA.contains(arrB[i])) cnt2++;
+      }
+      for(int i=0; i<a; i++){
+        if(!setB.contains(arrA[i])) cnt1++;
+      }
       
-      temp = new HashSet<>(setB);
-      temp.removeAll(setA);
-      cnt+=temp.size();
-      
-      System.out.println(cnt);
+      System.out.println(cnt1+cnt2);
   }
 }

@@ -11,23 +11,21 @@ public class Main {
       
       st = new StringTokenizer(br.readLine());
       
-      int[] arr = new int[n];
-      
-      for(int i=0; i<n; i++){
+      int[] arr = new int[n+1];
+      for(int i=1; i<n+1; i++){
         arr[i] = Integer.parseInt(st.nextToken());
       }
       
-      //슬라이딩 윈도우
-      int sum = 0;
-      ////////////
-      for(int i=0;i<k;i++) sum+=arr[i];
-      int ans = sum;
-      
-      for(int i=0; i<n-k; i++){
-        sum = sum - arr[i] + arr[i+k];
-        ans = Math.max(ans, sum);
+      int[] prefixSum = new int[n+1];
+      for(int i=1; i<n+1; i++){
+        prefixSum[i] = prefixSum[i-1] + arr[i];
       }
       
-      System.out.println(ans);
+      int result = Integer.MIN_VALUE;
+      for(int i=k; i<n+1; i++){
+        int sum = prefixSum[i] - prefixSum[i-k];
+        result = Math.max(result,sum);
+      }
+      System.out.println(result);
   }
 }

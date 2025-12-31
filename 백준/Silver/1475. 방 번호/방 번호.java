@@ -4,26 +4,27 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-      int[] num = new int[10];
       
-      //6->9 9->6
       String s = br.readLine();
+      int[] num = new int[9];
+      
       for(int i=0; i<s.length(); i++){
-        char c = s.charAt(i);
-        if(c=='9') num[6]++;
-        else num[c-'0']++;
+        int n = s.charAt(i)-'0';
+        if(n == 9) n = 6;
+        
+        num[n]++;
       }
       
-      int max = 0;
-      for(int i=0; i<10; i++){
-        if(i== 6){
-          int tmp = num[i]/2;
-          if(num[i]%2 != 0) tmp++;
-          max = Math.max(max,tmp);
-        } 
-        else max = Math.max(max, num[i]);
+      int ans = 0;
+      for(int i=0; i<9; i++){
+        int p = num[i];
+        if(i == 6){
+         if(num[i]%2 == 0) p = num[i]/2;
+         else p = num[i]/2 + 1;
+        }
+        ans = Math.max(ans, p);
       }
       
-      System.out.println(max);
+      System.out.println(ans);
   }
 }

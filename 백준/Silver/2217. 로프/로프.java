@@ -18,7 +18,5 @@ public class Main {
         weight = Math.max(weight, rope[i]*(n-i));
       }
       System.out.println(weight);
-      
-      
   }
 }

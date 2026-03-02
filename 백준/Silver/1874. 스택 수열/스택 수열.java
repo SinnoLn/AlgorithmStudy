@@ -5,6 +5,7 @@ public class Main {
     static int[] order;
     static List<Character> ans = new ArrayList<>();
     static int n;
+
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
       BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -23,8 +24,9 @@ public class Main {
           bw.write(c);
           bw.write('\n');
         }
+      } else {
+        bw.write("NO\n");
       }
-      else System.out.println("NO");
       
       bw.flush();
       bw.close();
@@ -35,32 +37,22 @@ public class Main {
       Stack<Integer> stack = new Stack<>();
       int idx = 0;
       int data = 1;
+
       while(idx != n){
           while(data <= order[idx]) {
-            
-            if(!stack.isEmpty() && stack.peek() == order[idx]){
-              ans.add('-');
-              stack.pop();
-              idx++;
-              break;
-            }
-            stack.add(data);
-            data++;
+            stack.push(data);
             ans.add('+');
+            data++;
           }
-          
-          while(data > order[idx]){
-            if(!stack.isEmpty() && stack.peek() == order[idx]){
-              ans.add('-');
-              stack.pop();
-              idx++;
-              break;
-            }
-            ans.add('-');
-            if(stack.isEmpty()) return false;
-            else stack.pop();
-          }
+
+          if(stack.isEmpty()) return false;
+          if(stack.peek() != order[idx]) return false;
+
+          stack.pop();
+          ans.add('-');
+          idx++;
       }
+
       return true;
     }
 }

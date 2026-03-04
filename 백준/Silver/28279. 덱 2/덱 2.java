@@ -4,6 +4,7 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      StringBuilder sb = new StringBuilder();
       Deque<Integer> dq = new ArrayDeque<>();
       
       int n = Integer.parseInt(br.readLine());
@@ -21,28 +22,30 @@ public class Main {
           dq.addLast(num);
         }
         else if(op == 3){
-          if(dq.isEmpty()) System.out.println(-1);
-          else System.out.println(dq.removeFirst());
+          if(dq.isEmpty()) sb.append(-1).append('\n');
+          else sb.append(dq.removeFirst()).append('\n');
         }
         else if(op == 4){
-          if(dq.isEmpty()) System.out.println(-1);
-          else System.out.println(dq.removeLast());
+          if(dq.isEmpty()) sb.append(-1).append('\n');
+          else sb.append(dq.removeLast()).append('\n');
         }
         else if(op == 5){
-          System.out.println(dq.size());
+          sb.append(dq.size()).append('\n');
         }
         else if(op == 6){
-          if(dq.isEmpty()) System.out.println(1);
-          else System.out.println(0);
+          if(dq.isEmpty()) sb.append(1).append('\n');
+          else sb.append(0).append('\n');
         }
         else if(op == 7){
-          if(dq.isEmpty()) System.out.println(-1);
-          else System.out.println(dq.peekFirst());
+          if(dq.isEmpty()) sb.append(-1).append('\n');
+          else sb.append(dq.peekFirst()).append('\n');
         }
         else{
-          if(dq.isEmpty()) System.out.println(-1);
-          else System.out.println(dq.peekLast());
+          if(dq.isEmpty()) sb.append(-1).append('\n');
+          else sb.append(dq.peekLast()).append('\n');
         }
       }
+      
+      System.out.println(sb.toString());
     }
 }

@@ -1,38 +1,56 @@
+import java.util.*;
 import java.io.*;
 
-class Main {
-    final static int MAX_SIZE = 3;
-
-    public static void main(String[] args) throws Exception {
-        int n = read();
-        int[][] maxDP = new int[n][MAX_SIZE];
-        int[][] minDP = new int[n][MAX_SIZE];
-
-        for (int j = 0; j < MAX_SIZE; j++) {
-            maxDP[0][j] = minDP[0][j] = read();
+//dp
+public class Main {
+    public static void main(String[] args) throws IOException{
+      BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      
+      int n = Integer.parseInt(br.readLine());
+      int[][] map = new int[n][3];
+      
+      for(int i=0; i<n; i++){
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        for(int j=0; j<3; j++){
+          int num = Integer.parseInt(st.nextToken());
+          map[i][j] = num;
         }
-
-        for (int i = 1; i < n; i++) {
-            int a = read(), b = read(), c = read();
-
-            maxDP[i][0] = Math.max(maxDP[i - 1][0], maxDP[i - 1][1]) + a;
-            maxDP[i][1] = Math.max(maxDP[i - 1][0], Math.max(maxDP[i - 1][1], maxDP[i - 1][2])) + b;
-            maxDP[i][2] = Math.max(maxDP[i - 1][1], maxDP[i - 1][2]) + c;
-
-            minDP[i][0] = Math.min(minDP[i - 1][0], minDP[i - 1][1]) + a;
-            minDP[i][1] = Math.min(minDP[i - 1][0], Math.min(minDP[i - 1][1], minDP[i - 1][2])) + b;
-            minDP[i][2] = Math.min(minDP[i - 1][1], minDP[i - 1][2]) + c;
-        }
-        int maxAns = Math.max(maxDP[n-1][0], Math.max(maxDP[n-1][1], maxDP[n-1][2]));
-        int minAns = Math.min(minDP[n-1][0], Math.min(minDP[n-1][1], minDP[n-1][2]));
-
-        System.out.println(maxAns +" "+ minAns);
-    }
-
-    static int read() throws Exception {
-        int c, n = System.in.read() & 15;
-        while ((c = System.in.read()) > 32) 
-            n = (n << 3) + (n << 1) + (c & 15);
-        return n;
+      }
+      
+      //로직 시작
+      //그 위치에 있을때 최소, 최대
+      int[] maxDP = new int[3];
+      int[] minDP = new int[3];
+      
+      maxDP[0] = minDP[0] = map[0][0];
+      maxDP[1] = minDP[1] = map[0][1];
+      maxDP[2] = minDP[2] = map[0][2];
+      
+      for(int i=1; i<n; i++){
+        int[]p = new int[3];
+        int[]q = new int[3];
+        
+        p[0] = maxDP[0];
+        p[1] = maxDP[1];
+        p[2] = maxDP[2];
+        
+        q[0] = minDP[0];
+        q[1] = minDP[1];
+        q[2] = minDP[2];
+        
+        maxDP[0] = map[i][0] + Math.max(p[0],p[1]);
+        maxDP[1] = map[i][1] + Math.max(p[0], Math.max(p[1], p[2]));
+        maxDP[2] = map[i][2] + Math.max(p[2], p[1]);
+        
+        minDP[0] = map[i][0] + Math.min(q[1],q[0]);
+        minDP[1] = map[i][1] + Math.min(q[0], Math.min(q[1], q[2]));
+        minDP[2] = map[i][2] + Math.min(q[2], q[1]);
+      }
+      
+      int minAns = Math.min(minDP[0], Math.min(minDP[1], minDP[2]));
+      int maxAns = Math.max(maxDP[0], Math.max(maxDP[1], maxDP[2]));
+      
+      System.out.println(maxAns + " " + minAns);
     }
 }

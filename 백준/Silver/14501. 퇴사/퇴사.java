@@ -1,30 +1,50 @@
 import java.util.*;
 import java.io.*;
 
+//백트랙킹
 public class Main {
+    static class Info {
+      int time;
+      int pay;
+      
+      public Info(int time, int pay){
+        this.time = time;
+        this.pay = pay;
+      }
+    }
+    static Info pay[];
+    static int n, ans;
     public static void main(String[] args) throws IOException{
       BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      n = Integer.parseInt(br.readLine());
       
-      int n = Integer.parseInt(br.readLine());
-      int[] t = new int[n];
-      int[] p = new int[n];
+      // 1<=n<=15
+      // 상담을 하거나 안하거나
+      // 2^15 -> 7만 정도
+      // 최대 수익
       
+      pay = new Info[n];
       for(int i=0; i<n; i++){
         StringTokenizer st = new StringTokenizer(br.readLine());
-        t[i] = Integer.parseInt(st.nextToken());
-        p[i] = Integer.parseInt(st.nextToken());
-      }
-      
-      int[] dp = new int[n+1];
-      
-      for(int i=n-1; i>=0; i--){
-        int nextDay = i + t[i];
+        int t = Integer.parseInt(st.nextToken());
+        int p = Integer.parseInt(st.nextToken());
         
-        //상담 가능
-        if(nextDay<=n) dp[i] = Math.max(p[i] + dp[nextDay], dp[i+1]);
-        else dp[i] = dp[i+1];
+        pay[i] = new Info(t,p);
       }
       
-      System.out.println(dp[0]);
-  }
+      backtrack(0,0);
+      System.out.println(ans);
+    }
+    
+    static void backtrack(int day, int total){
+      
+      ans = Math.max(total, ans);
+      
+      if(day >= n) return;
+
+      backtrack(day+1, total);
+      if(day + pay[day].time <= n){
+       backtrack(day+pay[day].time, total+pay[day].pay);  
+      }
+    }
 }

@@ -7,25 +7,23 @@ public class Main {
       StringTokenizer st = new StringTokenizer(br.readLine());
       
       int n = Integer.parseInt(st.nextToken());
-      int k = Integer.parseInt(st.nextToken());
-      
-      st = new StringTokenizer(br.readLine());
+      int m = Integer.parseInt(st.nextToken());
       
       int[] arr = new int[n+1];
-      for(int i=1; i<n+1; i++){
-        arr[i] = Integer.parseInt(st.nextToken());
-      }
+      st = new StringTokenizer(br.readLine());
+      for(int i=1; i<n+1; i++) arr[i] = Integer.parseInt(st.nextToken());
       
       int[] prefixSum = new int[n+1];
-      for(int i=1; i<n+1; i++){
+      for(int i=1; i<=n; i++){
         prefixSum[i] = prefixSum[i-1] + arr[i];
       }
       
-      int result = Integer.MIN_VALUE;
-      for(int i=k; i<n+1; i++){
-        int sum = prefixSum[i] - prefixSum[i-k];
-        result = Math.max(result,sum);
+      int ans = Integer.MIN_VALUE;
+      for(int i=m; i<n+1; i++){
+        int tmp = prefixSum[i] - prefixSum[i-m];
+        ans = Math.max(tmp, ans);
       }
-      System.out.println(result);
-  }
+      
+      System.out.println(ans);
+    }
 }

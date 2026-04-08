@@ -25,10 +25,10 @@ public class Main {
       for(int i=0; i<n-1; i++){
         int num = Integer.parseInt(st.nextToken());
         if(maxPay>num){
-          pay+=dist[i]*num;
+          pay+=(long)dist[i]*num;
           maxPay = num;
         }
-        else pay+=maxPay*dist[i];
+        else pay+=(long)maxPay*dist[i];
       }
       
       System.out.println(pay);
